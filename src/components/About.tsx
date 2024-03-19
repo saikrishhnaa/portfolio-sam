@@ -1,10 +1,14 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { PageInfo } from "../../typing";
+import { urlFor } from "../../sanity";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-function About({}: Props) {
+function About({ pageInfo }: Props) {
   return (
     <motion.div
       initial={{
@@ -16,7 +20,7 @@ function About({}: Props) {
       transition={{ duration: 1.5 }}
       className="relative mx-auto flex h-screen max-w-7xl flex-col items-center justify-evenly text-center md:flex-row md:text-left"
     >
-      <h3 className="absolute top-24 text-2xl uppercase tracking-[20px] text-gray-500">
+      <h3 className="absolute top-24 text-2xl uppercase tracking-[20px] text-white">
         About
       </h3>
       <motion.img
@@ -24,26 +28,17 @@ function About({}: Props) {
         transition={{ duration: 1.2 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        src="/me_fullimg.jpg"
-        className="md:h-95 -mb-20 h-56 w-56 flex-shrink-0 rounded-full object-cover object-top md:mb-0 md:w-64 md:rounded-lg xl:h-[600px] xl:w-[500px]"
+        src="/saikrishna.png"
+        className="-mb-20 ml-10 h-56 w-56 flex-shrink-0 rounded-full bg-[#112436] object-cover object-top md:mb-0 md:h-96 md:w-64 md:rounded-lg xl:h-[500px] xl:w-[400px]"
       />
       <div className="space-y-10 px-0 md:px-10">
         <h4 className="text-4xl font-semibold">
-          Here is a{" "}
-          <span className="underline decoration-[#F7AB0A]/50">little</span>{" "}
-          background
+          Hey there, I&apos;m{" "}
+          <span className="underline decoration-[#F7AB0A]/50">Saikrishna</span>{" "}
+          -<div>Software Engineer, based in Pune, India</div>
         </h4>
-        <p className="text-base">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum. Ut placerat
-          orci nulla pellentesque dignissim enim sit amet venenatis. In vitae
-          turpis massa sed elementum tempus egestas sed. Quisque sagittis purus
-          sit amet volutpat consequat mauris nunc.
+        <p className="text-base text-white/50">
+          {pageInfo?.backgroundInformation}
         </p>
       </div>
     </motion.div>

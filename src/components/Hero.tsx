@@ -4,15 +4,19 @@ import { Cursor, useTypewriter } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
 import Image from "next/image";
 import Link from "next/link";
+import { PageInfo } from "../../typing";
+import { urlFor } from "../../sanity";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-function Hero({}: Props) {
+function Hero({ pageInfo }: Props) {
   const [text, count] = useTypewriter({
     words: [
-      "Hi, The Name's Saikrishna Makam",
-      "Guy-who-loves-Cofee.tsx",
-      "<ButLovesToCodeMore />",
+      `I'm ${pageInfo?.name}`,
+      "Blending-Code-Pixels-Imaginations.tsx",
+      "<CraftingDigitalDreamsWithCode />",
     ],
     loop: true,
     delaySpeed: 2000,
@@ -22,14 +26,15 @@ function Hero({}: Props) {
       <BackgroundCircles />
       <Image
         className="relative mx-auto rounded-full object-cover"
-        src="/me_profileimg.jpg"
+        src={urlFor(pageInfo?.heroImage).url()}
+        priority
         width={150}
         height={150}
-        alt="Saikrishna"
+        alt={pageInfo?.name}
       />
       <div className="z-20">
-        <h1 className="pb-2 text-sm uppercase tracking-[15px] text-gray-500">
-          Software Engineer
+        <h1 className="pb-2 text-sm uppercase tracking-[15px] text-white">
+          {pageInfo?.role}
         </h1>
         <h1 className="px-10 text-5xl font-semibold lg:text-6xl">
           <span className="mr-3">{text}</span>
@@ -53,5 +58,7 @@ function Hero({}: Props) {
     </div>
   );
 }
+
+export const dynamic = "force-dynamic";
 
 export default Hero;

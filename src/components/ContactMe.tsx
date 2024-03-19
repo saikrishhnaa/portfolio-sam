@@ -20,16 +20,16 @@ function ContactMe({}: Props) {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    window.location.href = `mailto:saikrishnaamakam@gmail?subject${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} ${formData.email}`;
+    window.location.href = `mailto:saikrishnaamakam@gmail.com?subject=${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} ${formData.email}`;
   };
 
   return (
     <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center justify-evenly px-10 px-10 text-center md:flex-row md:text-left">
-      <h3 className="absolute top-24 text-2xl uppercase tracking-[20px] text-gray-500">
+      <h3 className="absolute top-24 text-2xl uppercase tracking-[20px]">
         Contact
       </h3>
       <div className="flex flex-col space-y-10">
-        <h4 className="text-center text-4xl font-semibold">
+        <h4 className="text-center text-4xl font-semibold text-white/70">
           I have got just what you need.{" "}
           <span className="underline decoration-[#F7AB0A]/50">Lets Talk.</span>
         </h4>
@@ -42,11 +42,6 @@ function ContactMe({}: Props) {
           <div className="flex items-center justify-center space-x-5">
             <EnvelopeIcon className="h-7 w-7 animate-pulse text-[#F7AB0A]" />
             <p className="text-2xl">saikrishnaamakam@gmail.com</p>
-          </div>
-
-          <div className="flex items-center justify-center space-x-5">
-            <MapPinIcon className="h-7 w-7 animate-pulse text-[#F7AB0A]" />
-            <p className="text-2xl">Dhankawadi, Pune</p>
           </div>
         </div>
 
@@ -83,7 +78,7 @@ function ContactMe({}: Props) {
             type="submit"
             className="rounded-md bg-[#F7AB0A] px-10 py-5 text-lg font-bold text-black"
           >
-            Submit
+            Send an email
           </button>
         </form>
       </div>
