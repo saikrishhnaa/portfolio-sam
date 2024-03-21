@@ -70,7 +70,7 @@ const Home = ({
         />
       </Head>
 
-      <Header socials={socials} />
+      <Header socials={socials} pageInfo={pageInfo} />
 
       <section id="hero" className="snap-start">
         <Hero pageInfo={pageInfo} />
@@ -112,28 +112,74 @@ const Home = ({
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo: PageInfo = await fetchPageInfo();
-  const experiences: Experience[] = await fetchExperiences();
-  const skills: Skill[] = await fetchSkills();
-  const projects: Project[] = await fetchProjects();
-  const openGLProjects: Project[] = await fetchOpenGLProjects();
-  const socials: Social[] = await fetchSocial();
-
-  return {
-    props: {
-      pageInfo,
-      experiences,
-      skills,
-      projects,
-      openGLProjects,
-      socials,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - when a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10,
-  };
-};
-
 export default Home;
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const pageInfo: PageInfo = await fetchPageInfo();
+    const experiences: Experience[] = await fetchExperiences();
+    const skills: Skill[] = await fetchSkills();
+    const projects: Project[] = await fetchProjects();
+    const openGLProjects: Project[] = await fetchOpenGLProjects();
+    const socials: Social[] = await fetchSocial();
+
+    return {
+      props: {
+        pageInfo,
+        experiences,
+        skills,
+        projects,
+        openGLProjects,
+        socials,
+      },
+      // Next.js will attempt to re-generate the page:
+      // - when a request comes in
+      // - At most once every 10 seconds
+      revalidate: 10,
+    };
+  } catch (e) {
+    return {
+      props: {
+        pageInfo: {
+          _type: "pageInfo",
+          _createAt: "",
+          _updatedAt: "",
+          _id: "",
+          _rev: "",
+          address: "",
+          backgroundInformation: "",
+          email: "",
+          role: "",
+          heroImage: {
+            _type: "Image",
+            asset: {
+              _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
+              _type: "reference",
+            },
+          },
+          name: "",
+          phoneNumber: "",
+          profilePic: {
+            _type: "Image",
+            asset: {
+              _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
+              _type: "reference",
+            },
+          },
+          cvFile: {
+            _type: "File",
+            asset: {
+              _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
+              _type: "reference",
+            },
+          },
+        },
+        experiences: [],
+        skills: [],
+        projects: [],
+        openGLProjects: [],
+        socials: [],
+      },
+    };
+  }
+};

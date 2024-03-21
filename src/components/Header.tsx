@@ -2,15 +2,24 @@
 import React from "react";
 import { SocialIcon } from "react-social-icons";
 import { motion } from "framer-motion";
-import { Social } from "../../typing";
+import { PageInfo, Social } from "../../typing";
+import { urlFor } from "../../sanity";
 
 type Props = {
   socials: Social[];
+  pageInfo: PageInfo;
 };
 
-function Header({ socials }: Props) {
+function Header({ socials, pageInfo }: Props) {
   const onGetInTouchBtnClicked = () => {
     window.location.href = `mailto:saikrishnaamakam@gmail.com`;
+  };
+  const getCSVFileURL = () => {
+    const csvFileURL = pageInfo?.cvFile.asset._ref;
+    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
+    const [_file, id, extension] = csvFileURL.split("-");
+    return `https://cdn.sanity.io/files/${projectId}/${dataset}/${id}.${extension}`;
   };
   return (
     <header className="sticky top-0 z-20 mx-auto flex max-w-7xl items-start justify-between xl:items-center">
@@ -42,18 +51,27 @@ function Header({ socials }: Props) {
           scale: 1,
         }}
         transition={{ duration: 1.5 }}
-        className="mr-5 flex cursor-pointer flex-row items-center text-gray-300"
-        onClick={onGetInTouchBtnClicked}
+        className="flex cursor-pointer flex-row items-center text-gray-300"
       >
-        <SocialIcon
-          className="cursor-pointer"
-          network="email"
-          fgColor="gray"
-          bgColor="transparent"
-        />
-        <p className="hidden text-sm uppercase text-gray-400 md:inline-flex">
-          Get In Touch
-        </p>
+        <div onClick={onGetInTouchBtnClicked}>
+          <SocialIcon
+            className="cursor-pointer"
+            network="email"
+            fgColor="gray"
+            bgColor="transparent"
+          />
+          <p className="hidden text-sm uppercase text-gray-400 md:inline-flex">
+            Get In Touch
+          </p>
+        </div>
+        <a
+          href={getCSVFileURL()}
+          target="_blank"
+          className="text-md ml-5 mr-5 rounded-md border-2 border-[#F7AB0A]/50 px-4 py-1 text-white/60"
+          download
+        >
+          Download CV
+        </a>
       </motion.div>
     </header>
   );

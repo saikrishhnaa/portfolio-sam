@@ -12,8 +12,8 @@ type Data = {
 };
 
 export async function GET(request: NextRequest) {
-  const pageInfo1: PageInfo[] = await sanityClient.fetch(query);
-  const pageInfo = pageInfo1[0];
+  const pageInfoObj: PageInfo[] = await sanityClient.fetch(query);
+  const pageInfo = pageInfoObj[0];
 
   return NextResponse.json<Data>({ pageInfo });
 }
